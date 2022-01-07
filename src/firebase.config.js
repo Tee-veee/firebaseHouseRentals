@@ -2,8 +2,11 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+const FB_API = process.env.REACT_APP_FB_API;
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBByGAWtl8tw6KfrXBAi_KAt7Q4c5kBqrI",
+  apiKey: FB_API,
   authDomain: "realestateapp-1fdab.firebaseapp.com",
   projectId: "realestateapp-1fdab",
   storageBucket: "realestateapp-1fdab.appspot.com",
