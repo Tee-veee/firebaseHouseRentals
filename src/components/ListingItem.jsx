@@ -6,22 +6,22 @@ function ListingItem({ listing, id }) {
   return (
     <li>
       <Link to={`/category/${listing.type}/${id}`}>
-        <div className="flex p-1 mb-2 bg-white hover:shadow-xl">
+        <div className="flex p-1 mb-2 bg-white hover:shadow-xl rounded-lg">
           <img
             src={listing.imageUrls[0]}
             alt={listing.name}
-            className="w-[180px] h-[150px] rounded-xl mr-2"
+            className=" w-[200px] h-[180px] rounded-xl mr-2"
           />
-          <div className="flex flex-col justify-between mb-2">
+          <div className="flex flex-col justify-between w-[300px] ">
             <div className="">
-              <h1 className="mb-1 text-xl">{listing.name}</h1>
+              <h1 className="mb-1 text-md md:text-xl">{listing.name}</h1>
               <h4 className="text-sm">{listing.location}</h4>
             </div>
-            <h1 className="p-2 bg-green-300 w-fit rounded-full shadow-lg">
+            <h3 className="p-1 bg-green-300 w-fit rounded-full text-sm shadow-lg">
               {listing.offer === true
                 ? "$" + listing.discountedPrice
                 : "$" + listing.regularPrice}
-            </h1>
+            </h3>
             <div className="flex justify-between">
               <div className="flex items-center">
                 <FaBed className="text-2xl pr-1" />

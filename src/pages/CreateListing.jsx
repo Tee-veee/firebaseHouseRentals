@@ -65,6 +65,7 @@ function CreateListing() {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           setFormData({ ...formData, userRef: user.uid });
+          console.log(user);
         } else {
           navigate("/sign-in");
         }
@@ -185,7 +186,8 @@ function CreateListing() {
     // LOOP OVER ALL IMAGES AND RUN ASYNC STORE IMAGE FUNCTION
     const imageUrls = await Promise.all(
       [...images].map((image) => storeImage(image))
-    ).catch(() => {
+    ).catch((error) => {
+      console.log(error);
       setLoading(false);
       toast.error("Problem with 1 or more images");
       return;

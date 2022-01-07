@@ -75,7 +75,7 @@ function Category() {
       ) : listings && listings.length > 0 ? (
         // CSS FOR CATEGORY LIST
         <main className="w-full h-fit mt-2">
-          <ul>
+          <ul className="mb-12 ">
             {listings.map((listing) => {
               return (
                 <ListingItem

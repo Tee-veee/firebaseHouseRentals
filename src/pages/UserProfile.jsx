@@ -2,15 +2,29 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
+// COMP
+import ListingItem from "../components/ListingItem";
+import Loading from "../components/Loading";
 // FIREBASE
 import { getAuth, updateProfile } from "firebase/auth";
 import { db } from "../firebase.config";
 // FIRESTORE
-import { updateDoc, doc } from "firebase/firestore";
+import {
+  updateDoc,
+  doc,
+  getDocs,
+  collection,
+  query,
+  where,
+  orderBy,
+  deleteDoc,
+} from "firebase/firestore";
 // TOAST
 import { toast } from "react-toastify";
 
 function UserProfile() {
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
   const auth = getAuth();
   const navigate = useNavigate();
 
@@ -24,12 +38,39 @@ function UserProfile() {
 
   const { username, email } = formData;
 
+  useEffect(() => {
+    const fetchUserListings = async () => {
+      const listingsRef = collection(db, "listings");
+
+      // NOTES -- QUERY FOR DB
+      const que = query(
+        listingsRef,
+        where("userRef", "==", auth.currentUser.uid),
+        orderBy("timestamp", "desc")
+      );
+
+      const querySnapshot = await getDocs(que);
+
+      const listings = [];
+
+      querySnapshot.forEach((doc) => {
+        return listings.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+
+      setListings(listings);
+      setLoading(false);
+    };
+    fetchUserListings();
+  }, [auth.currentUser.uid]);
+
   const onLogout = () => {
     // SIGNS OUT USER FROM FIREBASE
     auth.signOut();
-    // NAV HOME
+
     navigate("/");
-    // SHOW SUCCESS MODAL
     toast.success("Logged out succesfully");
   };
 
@@ -60,10 +101,17 @@ function UserProfile() {
     }));
   };
 
+  const onDelete = () => {};
   return (
-    <div className="relative h-screen bg-blue-300 p-8">
-      <header>
+    <div className="relative min-h-screen h-fit bg-blue-300 p-8">
+      <header className="flex justify-between">
         <h1 className="text-3xl">My Profile</h1>
+        <button
+          className=" w-2/12 p-2 bg-green-300 rounded-lg hover:scale-[0.98] hover:transition-all"
+          onClick={onLogout}
+        >
+          Logout
+        </button>
       </header>
 
       <main>
@@ -109,14 +157,24 @@ function UserProfile() {
           </button>
         </Link>
       </div>
-      <div className="absolute left-0 bottom-16 p-8 w-full">
-        <button
-          className="mt-12 sm:mt-6 w-full p-2 bg-green-300 rounded-lg hover:scale-[0.98] hover:transition-all"
-          onClick={onLogout}
-        >
-          Logout
-        </button>
-      </div>
+
+      {!loading && listings?.length > 0 && (
+        <div className="mt-4 mb-12">
+          <h1 className="text-xl">Your Listings</h1>
+          <ul>
+            {listings.map((listing) => {
+              return (
+                <ListingItem
+                  key={listing.id}
+                  listing={listing.data}
+                  id={listing.id}
+                  onDelete={() => onDelete(listing.id)}
+                />
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

@@ -21,7 +21,7 @@ import PrivateRoute from "./components/PrivateRoute";
 function App() {
   return (
     <>
-      <main className="relative min-h-screen h-fit font-defaultFont">
+      <main className="relative min-h-screen h-fit font-defaultFont  overflow-x-hidden">
         <Router>
           <Routes>
             <Route path="/" element={<ExploreListings />} />

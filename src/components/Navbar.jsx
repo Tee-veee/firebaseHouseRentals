@@ -13,7 +13,7 @@ function Navbar() {
   };
 
   return (
-    <nav className=" flex items-center bg-gray-300 absolute bottom-0">
+    <nav className=" flex items-center bg-gray-300 absolute bottom-0 ">
       <ul className="flex py-1 items-center w-screen justify-around">
         <li
           className="flex flex-col items-center"
