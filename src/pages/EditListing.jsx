@@ -128,7 +128,7 @@ function EditListing() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(listing);
     setLoading(true);
 
     if (images.length > 6) {

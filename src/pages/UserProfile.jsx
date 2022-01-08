@@ -121,6 +121,14 @@ function UserProfile() {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="h-fit min-h-screen flex items-center justify-center bg-blue-300 md:p-8 p-4">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen p-4 h-fit bg-blue-300 md:p-8">
       <header className="flex justify-between">
