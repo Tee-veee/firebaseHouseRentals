@@ -77,7 +77,7 @@ function OfferListings() {
                 <ListingItem
                   listing={listing.data}
                   id={listing.id}
-                  key={listing.data.id}
+                  key={listing.id}
                 />
               );
             })}

@@ -87,7 +87,7 @@ function Listing() {
 
   if (loading) {
     return (
-      <div className="h-fit flex items-center justify-center bg-blue-300 md:p-8 p-4">
+      <div className="h-fit min-h-screen flex items-center justify-center bg-blue-300 md:p-8 p-4">
         <Loading />
       </div>
     );

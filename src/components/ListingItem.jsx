@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import { FaBed, FaShower } from "react-icons/fa";
 import { AiFillCar } from "react-icons/ai";
+import { MdDelete } from "react-icons/md";
+import { FiEdit2 } from "react-icons/fi";
 
-function ListingItem({ listing, id }) {
+function ListingItem({ listing, id, onDelete, onEdit }) {
   return (
     <li>
       <Link to={`/category/${listing.type}/${id}`}>
-        <div className="flex p-1 mb-2 bg-white hover:shadow-xl rounded-lg">
+        <div className="relative flex max-w-fit p-1 mb-2 bg-white hover:shadow-xl rounded-lg">
           <img
             src={listing.imageUrls[0]}
             alt={listing.name}
-            className=" w-[200px] h-[180px] rounded-xl mr-2"
+            className="min-w-[180px] max-w-[180px] min-h-[160px] max-h-[160px] rounded-xl mr-2"
           />
           <div className="flex flex-col justify-between w-[300px] ">
             <div className="">
@@ -40,6 +42,28 @@ function ListingItem({ listing, id }) {
           </div>
         </div>
       </Link>
+      <div className="flex">
+        {onEdit && (
+          <div
+            className="bg-black w-fit text-white mr-1 p-2 h-fit rounded-lg shadow-lg hover:scale-[0.97] hover:transition-all"
+            onClick={() => onEdit(listing.id)}
+          >
+            <button className="flex items-center ">
+              <FiEdit2 className="mr-2" /> Edit
+            </button>
+          </div>
+        )}
+        {onDelete && (
+          <div
+            className="bg-red-500 text-white p-2 h-fit rounded-lg ml-1 shadow-lg hover:scale-[0.97] hover:transition-all"
+            onClick={() => onDelete(listing.id)}
+          >
+            <button className="flex items-center ">
+              <MdDelete className="mr-2" /> Delete
+            </button>
+          </div>
+        )}
+      </div>
     </li>
   );
 }

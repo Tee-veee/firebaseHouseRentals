@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AiFillHome } from "react-icons/ai";
+
 // COMP
 import ListingItem from "../components/ListingItem";
 import Loading from "../components/Loading";
@@ -101,13 +102,31 @@ function UserProfile() {
     }));
   };
 
-  const onDelete = () => {};
+  const onDelete = async (listingID) => {
+    if (window.confirm("Are you sure you want to delete")) {
+      await deleteDoc(doc(db, "listings", listingID));
+      const updatedList = listings.filter(
+        (listing) => listing.id !== listingID
+      );
+      setListings(updatedList);
+      toast.success("Succesfully deleted listing");
+      navigate("/profile");
+      return;
+    }
+  };
+
+  const onEdit = (listingID) => {
+    if (window.confirm("Edit this listing")) {
+      navigate(`/edit-listing/${listingID}`);
+    }
+  };
+
   return (
-    <div className="relative min-h-screen h-fit bg-blue-300 p-8">
+    <div className="relative min-h-screen p-4 h-fit bg-blue-300 md:p-8">
       <header className="flex justify-between">
         <h1 className="text-3xl">My Profile</h1>
         <button
-          className=" w-2/12 p-2 bg-green-300 rounded-lg hover:scale-[0.98] hover:transition-all"
+          className=" w-4/12 p-2 bg-green-300 rounded-lg hover:scale-[0.98] hover:transition-all"
           onClick={onLogout}
         >
           Logout
@@ -115,7 +134,7 @@ function UserProfile() {
       </header>
 
       <main>
-        <div className="mt-6">
+        <div className="mt-2 ">
           <p className="mt-2 mb-2 text-xl">Personal Details</p>
           <div className="">
             <form>
@@ -148,7 +167,7 @@ function UserProfile() {
           </button>
         </div>
       </main>
-      <div className="mt-8">
+      <div className="mt-4">
         <h1 className="text-xl">Join The Marketplace</h1>
         <Link to="/create-listing">
           <button className="flex items-center justify-center mt-2 p-2 bg-green-300 w-full rounded-lg hover:scale-[0.98] hover:transition-all">
@@ -159,8 +178,8 @@ function UserProfile() {
       </div>
 
       {!loading && listings?.length > 0 && (
-        <div className="mt-4 mb-12">
-          <h1 className="text-xl">Your Listings</h1>
+        <div className="mt-4 pb-16">
+          <h1 className="text-xl mb-2 ">Your Listings</h1>
           <ul>
             {listings.map((listing) => {
               return (
@@ -169,6 +188,7 @@ function UserProfile() {
                   listing={listing.data}
                   id={listing.id}
                   onDelete={() => onDelete(listing.id)}
+                  onEdit={() => onEdit(listing.id)}
                 />
               );
             })}
