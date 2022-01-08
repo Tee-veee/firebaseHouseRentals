@@ -1,6 +1,6 @@
 // LIB
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   BsFillShareFill,
   BsFillArrowRightCircleFill,
@@ -12,7 +12,7 @@ import { AiFillCar, AiOutlineMail } from "react-icons/ai";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase.config";
 // FIRESTORE
-import { getDoc, doc, collection } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 // TOAST
 import { toast } from "react-toastify";
 // REACT LEAFLET
@@ -25,9 +25,7 @@ function Listing() {
   const [imgUrlLen, setImgUrlLen] = useState("");
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [shareLinkCopied, setShareLinkCopied] = useState(false);
 
-  const navigate = useNavigate();
   const params = useParams();
   const auth = getAuth();
 
@@ -52,6 +50,7 @@ function Listing() {
       setImgUrlLen(listing?.imageUrls.length);
     };
     getUrl();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listing]);
 
   const copyLink = () => {
@@ -82,6 +81,8 @@ function Listing() {
           setUrl(listing?.imageUrls[currIndex]);
           return;
         }
+      default:
+        return;
     }
   };
 

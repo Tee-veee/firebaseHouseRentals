@@ -9,7 +9,6 @@ import {
   where,
   orderBy,
   limit,
-  startAfter,
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 // TOAST
@@ -57,6 +56,14 @@ function OfferListings() {
     };
     fetchListings();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="h-fit min-h-screen flex items-center justify-center bg-blue-300 md:p-8 p-4">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-blue-300 md:p-8 p-4">

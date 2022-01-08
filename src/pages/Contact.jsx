@@ -12,11 +12,9 @@ function Contact() {
   const [owner, setOwner] = useState("");
 
   // NOTES -- USE SEARCH PARAMS GIVES ME ACCESS TOO ANY SEARCH QUERIES
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const params = useParams();
-
-  const handleChange = (e) => {};
 
   useEffect(() => {
     const getOwner = async () => {
@@ -31,7 +29,7 @@ function Contact() {
     };
 
     getOwner();
-    console.log(owner);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.ownerID]);
 
   return (

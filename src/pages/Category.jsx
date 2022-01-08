@@ -2,15 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 // FIRESTORE
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  orderBy,
-  limit,
-  startAfter,
-} from "firebase/firestore";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import { db } from "../firebase.config";
 // TOAST
 import { toast } from "react-toastify";
@@ -33,8 +25,7 @@ function Category() {
         const que = query(
           listingsRef,
           where("type", "==", params.categoryName),
-          orderBy("timestamp", "desc"),
-          limit(10)
+          orderBy("timestamp", "desc")
         );
 
         // QUERY SNAP
@@ -56,7 +47,7 @@ function Category() {
       }
     };
     fetchListings();
-  }, []);
+  }, [params.categoryName]);
 
   return (
     <div className="min-h-screen bg-blue-300 md:p-8 p-4">

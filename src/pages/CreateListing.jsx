@@ -52,8 +52,6 @@ function CreateListing() {
     regularPrice,
     discountedPrice,
     images,
-    latitude,
-    longitude,
   } = formData;
 
   const auth = getAuth();
@@ -154,10 +152,6 @@ function CreateListing() {
         uploadTask.on(
           "state_changed",
           (snapshot) => {
-            // UNUSED VAR FOR UI, TO SHOW ON A PROGRESS BAR
-            const progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
             // CONTROLS STATE CHANGE
             switch (snapshot.state) {
               case "paused":
