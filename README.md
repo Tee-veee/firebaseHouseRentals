@@ -6,7 +6,7 @@ marketPlaceApp is just a basic UI designed for mobile, that utilises fireBase as
 ## why marketPlaceApp
 to experiment with a backend using NoSQL, also tested some other react libraries like toast.
 
-## using TYMDB
+## using marketPlaceApp
 designed for mobile.
 
 ## currently deployed
