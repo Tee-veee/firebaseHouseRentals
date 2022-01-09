@@ -6,7 +6,7 @@ marketPlaceApp is just a basic UI designed for mobile that utilises fireBase as 
 ## why marketPlaceApp
 to experiment with a firebase v9 and build my first basic backend project, this was a follow up to my TMDB project as I was curious about backends after familiarising myself with fetch API's and axios.
 
-also a good chance to expirment with some other JS libraries like leaflet and toast.
+also a good chance to experiment with some other JS libraries like leaflet and toast.
 
 ## using marketPlaceApp
 designed for mobile, however this is not a design project.
